@@ -1,0 +1,27 @@
+<div class="relative pt-10 py-5 px-2.5 bg-white -intro-x">
+  <div class="sm:w-[780px] mx-auto flex flex-row">
+    <button
+      tabindex="0"
+      (click)="router.navigate([language + '/data'], { relativeTo: route })"
+      [title]="'routes.admin.Layout.back' | translate"
+    >
+      <i class="las la-arrow-left text-3xl text-blue-600"></i>
+    </button>
+    <h2 class="text-2xl pl-3 font-semibold">
+      {{ (id ? 'routes.admin.data.updateCategorise' : 'routes.admin.data.addNewCategories') | translate }}
+    </h2>
+  </div>
+</div>
+<div class="bg-gray-100 min-h-[calc(100vh-200px)] pt-5 pb-10 px-5 sm:px-10" *ngIf="dataTypesFacade.status$ | async">
+  <div class="sm:w-[700px] bg-white mx-auto p-5 rounded-md shadow intro-x">
+    <h2 class="mb-5 font-semibold text-xl">{{ 'routes.admin.data.info' | translate }}</h2>
+    <g-form
+      [loading]="dataTypesFacade.isLoading$ | async"
+      [columns]="columnsForm"
+      [values]="!id ? null : (dataTypesFacade.data$ | async)"
+      [textSubmit]="'components.form.save' | translate"
+      (handSubmit)="handelSubmit($event)"
+      (handBack)="router.navigate([language + '/data'], { relativeTo: route })"
+    ></g-form>
+  </div>
+</div>

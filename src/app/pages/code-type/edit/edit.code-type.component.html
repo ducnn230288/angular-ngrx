@@ -1,0 +1,30 @@
+<div class="w-full" *ngIf="codeTypesFacade.status$ | async">
+  <div class="flex py-5 px-2.5 bg-white -intro-x">
+    <div class="sm:w-[770px] mx-auto flex gap-4">
+      <button class="relative" (click)="handleBack()" [title]="'routes.admin.Layout.back' | translate">
+        <i class="las la-arrow-left text-2xl text-blue-500"></i>
+      </button>
+      <h2 class="font-semibold text-2xl" *ngIf="!id">
+        {{ 'routes.admin.code_types.add_new' | translate }}
+        {{ typesFacade.getAttributeByKeyInArray(typesFacade.list$ | async, type, 'code', 'title') }}
+      </h2>
+      <h2 class="font-semibold text-2xl" *ngIf="id">
+        {{ 'routes.admin.code_types.edit' | translate }}
+        {{ typesFacade.getAttributeByKeyInArray(typesFacade.list$ | async, type, 'code', 'title') }}
+      </h2>
+    </div>
+  </div>
+  <section class="bg-gray-100 min-h-[calc(100vh-177px)] pt-5 pb-10 px-5 sm:px-10">
+    <div class="sm:w-[700px] bg-white mx-auto p-5 rounded-md shadow mb-5 intro-x">
+      <h3 class="mb-6 font-semibold text-lg">{{ 'routes.admin.code_types.information' | translate }}</h3>
+      <g-form
+        [columns]="columnsForm"
+        [loading]="codeTypesFacade.isLoading$ | async"
+        [values]="!id ? null : (codeTypesFacade.data$ | async)"
+        [textSubmit]="'components.form.save' | translate"
+        (handSubmit)="handelSubmit($event)"
+        (handBack)="handleBack()"
+      ></g-form>
+    </div>
+  </section>
+</div>
